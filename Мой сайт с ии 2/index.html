@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7SK Bicycle Service</title>
+
+  <style>
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Arial, sans-serif;
+  background: #000;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* BACKGROUND PARTICLES */
+
+#bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* HERO */
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  padding: 30px 20px;
+}
+
+.hero h1 {
+  font-size: 64px;
+  margin: 0;
+  animation: heroAppear 1.2s ease;
+}
+
+.hero p {
+  font-size: 18px;
+  color: rgba(255,255,255,0.7);
+  margin-top: 15px;
+  animation: heroAppear 1.5s ease;
+}
+
+@keyframes heroAppear {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* BUTTONS */
+
+.btns {
+  margin-top: 30px;
+  animation: heroAppear 1.8s ease;
+}
+
+.btns a {
+  display: inline-block;
+  margin: 10px;
+  padding: 14px 22px;
+  border-radius: 14px;
+  background: #7c3aed;
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+  font-size: 16px;
+}
+
+.btns a:hover {
+  transform: translateY(-5px);
+  background: #9333ea;
+  box-shadow: 0 0 25px #9333ea;
+}
+
+/* GENERAL TITLES */
+
+.section-title {
+  font-size: 38px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.section-title span {
+  color: #a855f7;
+  text-shadow: 0 0 15px #9333ea;
+}
+
+.section-subtitle {
+  color: #999;
+  text-align: center;
+  margin-bottom: 45px;
+  font-size: 16px;
+}
+
+/* ADVANTAGES */
+
+.advantages {
+  padding: 90px 20px;
+  text-align: center;
+  background: rgba(5,5,5,0.85);
+  backdrop-filter: blur(10px);
+}
+
+.advantages-grid {
+  max-width: 1150px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.advantage-card {
+  background: linear-gradient(145deg, #1b1028, #090909);
+  border: 1px solid rgba(147,51,234,0.4);
+  border-radius: 20px;
+  padding: 35px 20px;
+  transition: 0.35s;
+}
+
+.advantage-card:hover {
+  transform: translateY(-10px);
+  border-color: #a855f7;
+  box-shadow: 0 0 30px #9333ea55;
+}
+
+.advantage-icon {
+  font-size: 45px;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 0 10px #9333ea);
+}
+
+.advantage-card h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.advantage-card p {
+  color: #aaa;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* 3D BICYCLE SECTION */
+
+.bike-section {
+  position: relative;
+  padding: 100px 20px 110px;
+  text-align: center;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at center, #190b2c 0%, #08040e 45%, #000 85%);
+}
+
+.bike-section::before {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: #7c3aed;
+  opacity: 0.13;
+  filter: blur(130px);
+  border-radius: 50%;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.bike-heading {
+  position: relative;
+  z-index: 2;
+}
+
+.bike-heading h2 {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.bike-heading h2 span {
+  color: #a855f7;
+  text-shadow: 0 0 20px #9333ea;
+}
+
+.bike-heading p {
+  color: #999;
+  font-size: 16px;
+}
+
+/* BIKE STAGE */
+
+.bike-stage {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 40px auto 0;
+  perspective: 1000px;
+}
+
+.bike-platform {
+  position: relative;
+  width: 100%;
+  /* Велосипед неподвижен — вращаются только колёса */
+  transform-style: preserve-3d;
+}
+
+@keyframes bikeFloat {
+  0%, 100% {
+    transform: translateY(0) rotateX(2deg);
+  }
+  50% {
+    transform: translateY(-12px) rotateX(-1deg);
+  }
+}
+
+.bike-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter:
+    drop-shadow(0 0 10px rgba(168,85,247,0.45))
+    drop-shadow(0 0 30px rgba(124,58,237,0.2));
+}
+
+/* ROTATING WHEELS */
+
+.wheel-spin {
+  transform-box: view-box;
+  animation: wheelRotate 5s linear infinite;
+}
+.wheel-spin.rear-wheel {
+  transform-origin: 245px 300px;
+}
+.wheel-spin.front-wheel {
+  transform-origin: 675px 300px;
+}
+
+@keyframes wheelRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* NEON LINE */
+
+.bike-ground {
+  width: 75%;
+  height: 3px;
+  margin: -5px auto 0;
+  border-radius: 50%;
+  background: #a855f7;
+  box-shadow:
+    0 0 10px #a855f7,
+    0 0 30px #9333ea,
+    0 0 60px #7c3aed;
+  animation: groundGlow 3s ease-in-out infinite;
+}
+
+@keyframes groundGlow {
+  0%, 100% {
+    opacity: 0.45;
+    transform: scaleX(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+.bike-caption {
+  margin-top: 35px;
+  color: #aaa;
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* STATS */
+
+.stats {
+  padding: 85px 20px;
+  text-align: center;
+  background: linear-gradient(180deg, #09000f, #10091a, #050505);
+  border-top: 1px solid #6825a5;
+  border-bottom: 1px solid #6825a5;
+}
+
+.stats-grid {
+  max-width: 1000px;
+  margin: 45px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.stat-item {
+  padding: 25px;
+}
+
+.stat-number {
+  font-size: 55px;
+  font-weight: 800;
+  color: #a855f7;
+  text-shadow: 0 0 25px #9333ea99;
+}
+
+.stat-item p {
+  color: #aaa;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+/* CONTACT */
+
+.contact {
+  text-align: center;
+  padding: 80px 20px;
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(10px);
+}
+
+.contact h2 {
+  font-size: 36px;
+  margin-bottom: 25px;
+}
+
+.contact p {
+  font-size: 18px;
+  color: rgba(255,255,255,0.8);
+  margin: 14px 0;
+}
+
+.contact a {
+  color: #c084fc;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.contact a:hover {
+  color: white;
+  text-shadow: 0 0 12px #9333ea;
+}
+
+/* FOOTER */
+
+footer {
+  padding: 25px 15px;
+  text-align: center;
+  background: #050505;
+  border-top: 1px solid #281239;
+  color: #777;
+  font-size: 13px;
+}
+
+/* SCROLL REVEAL */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* TOP BUTTON */
+
+.top-button {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: #7c3aed;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 0 20px #9333ea88;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(15px);
+  transition: 0.3s;
+  z-index: 10;
+}
+
+.top-button.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.top-button:hover {
+  background: #a855f7;
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 900px) {
+  .advantages-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width: 768px) {
+  .hero h1 {
+    font-size: 42px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .btns a {
+    display: block;
+    width: 90%;
+    margin: 12px auto;
+  }
+
+  .section-title,
+  .bike-heading h2 {
+    font-size: 30px;
+  }
+
+  .contact h2 {
+    font-size: 28px;
+  }
+
+  .stats-grid {
+    gap: 5px;
+  }
+
+  .stat-number {
+    font-size: 38px;
+  }
+
+  .stat-item p {
+    font-size: 13px;
+  }
+
+  .bike-section {
+    padding: 75px 10px;
+  }
+
+  .bike-stage {
+    margin-top: 25px;
+  }
+}
+
+@media(max-width: 500px) {
+  .advantages-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 34px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .bike-caption {
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+}
+
+/* ACCESSIBILITY */
+
+@media(prefers-reduced-motion: reduce) {
+  .wheel-spin { animation: none !important; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+
+/* ===== ANIMATED GLASS NAVIGATION TABS ===== */
+.site-nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:10000;display:flex;align-items:center;gap:22px;padding:9px 14px 9px 18px;border:1px solid rgba(255,255,255,.13);border-radius:20px;background:rgba(10,8,18,.66);backdrop-filter:blur(22px);box-shadow:0 12px 45px #0007,0 0 25px #7c3aed20;animation:navDrop .7s cubic-bezier(.2,.8,.2,1) both}
+@keyframes navDrop{from{opacity:0;transform:translate(-50%,-22px)}to{opacity:1;transform:translate(-50%,0)}}
+.nav-brand{font-size:20px;font-weight:900;letter-spacing:1px;color:#fff;text-decoration:none}.nav-brand span{color:#c084fc;text-shadow:0 0 14px #a855f7}
+.nav-tabs{display:flex;align-items:center;gap:5px}.nav-tab{position:relative;padding:10px 13px;border-radius:12px;color:#c9c3d5;text-decoration:none;font-size:13px;font-weight:650;white-space:nowrap;transition:color .25s,background .25s,transform .25s}.nav-tab::after{content:"";position:absolute;left:14px;right:14px;bottom:4px;height:2px;border-radius:4px;background:linear-gradient(90deg,#8b5cf6,#ec4899);transform:scaleX(0);transform-origin:center;transition:transform .28s cubic-bezier(.2,.8,.2,1);box-shadow:0 0 12px #a855f7}.nav-tab:hover{color:#fff;background:#ffffff0c;transform:translateY(-2px)}.nav-tab.active{color:#fff;background:linear-gradient(120deg,#7c3aed33,#c026d322)}.nav-tab.active::after{transform:scaleX(1)}
+section[id]{scroll-margin-top:105px}
+.ai-head-actions{display:flex;align-items:center;gap:8px}.ai-clear{border:1px solid #ffffff22;background:#ffffff10;color:#eee;border-radius:9px;padding:7px 9px;font-size:11px;cursor:pointer;transition:.2s}.ai-clear:hover{background:#ffffff20}.ai-message.typing{display:flex;gap:5px;align-items:center;min-width:56px}.ai-message.typing i{width:6px;height:6px;border-radius:50%;background:#c4b5fd;animation:typingDot .8s infinite alternate}.ai-message.typing i:nth-child(2){animation-delay:.18s}.ai-message.typing i:nth-child(3){animation-delay:.36s}@keyframes typingDot{to{opacity:.25;transform:translateY(-4px)}}
+@media(max-width:760px){.site-nav{top:8px;width:calc(100% - 16px);justify-content:space-between;gap:8px;padding:8px 9px 8px 12px;border-radius:16px}.nav-tabs{gap:1px;overflow-x:auto;scrollbar-width:none}.nav-tabs::-webkit-scrollbar{display:none}.nav-tab{font-size:11px;padding:9px 8px}.nav-tab::after{left:8px;right:8px}.nav-brand{font-size:17px}}
+@media(max-width:430px){.nav-brand{display:none}.nav-tabs{width:100%;justify-content:space-between}.nav-tab{font-size:10px;padding:9px 6px}}
+
+/* ===== 7SK CHATGPT + SIRI ASSISTANT ===== */
+.ai-launchers{position:fixed;right:22px;bottom:22px;z-index:10010;display:flex;flex-direction:column;gap:11px}
+.ai-launcher{width:58px;height:58px;border:1px solid rgba(255,255,255,.22);border-radius:20px;color:#fff;cursor:pointer;font-size:24px;background:linear-gradient(135deg,#7c3aed,#c026d3);box-shadow:0 8px 30px #7c3aed66;transition:.25s}
+.ai-launcher:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 10px 36px #a855f799}
+.ai-launcher.siri{background:linear-gradient(135deg,#2563eb,#9333ea,#db2777)}
+.ai-panel{position:fixed;right:22px;bottom:164px;width:min(390px,calc(100vw - 28px));height:min(540px,calc(100vh - 190px));z-index:10011;display:none;flex-direction:column;overflow:hidden;border:1px solid rgba(192,132,252,.35);border-radius:22px;background:rgba(10,8,18,.96);backdrop-filter:blur(22px);box-shadow:0 18px 70px #000b,0 0 35px #7c3aed33;color:#fff}
+.ai-panel.open{display:flex;animation:aiPanelIn .22s ease}
+@keyframes aiPanelIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+.ai-head{display:flex;align-items:center;justify-content:space-between;padding:15px 17px;border-bottom:1px solid #ffffff18;background:linear-gradient(100deg,#4c1d95aa,#701a75aa)}
+.ai-head strong{font-size:15px}.ai-close{border:0;background:#ffffff18;color:white;border-radius:10px;width:32px;height:32px;cursor:pointer;font-size:20px}
+.ai-messages{flex:1;overflow:auto;padding:15px;display:flex;flex-direction:column;gap:10px}
+.ai-message{max-width:88%;padding:11px 13px;border-radius:15px;font-size:14px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+.ai-message.bot{align-self:flex-start;background:#ffffff12;border:1px solid #ffffff12}.ai-message.user{align-self:flex-end;background:#6d28d9}
+.ai-form{display:flex;gap:8px;padding:12px;border-top:1px solid #ffffff18}.ai-form input{min-width:0;flex:1;border:1px solid #ffffff22;border-radius:12px;padding:12px;background:#ffffff0d;color:white;outline:none}.ai-form input:focus{border-color:#a855f7}.ai-send{border:0;border-radius:12px;padding:0 16px;background:#8b5cf6;color:white;font-weight:700;cursor:pointer}.ai-send:disabled{opacity:.5;cursor:wait}
+.siri-content{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px;gap:14px}.siri-orb{width:145px;height:145px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#93c5fd,#a855f7 42%,#db2777 72%,#312e81);box-shadow:0 0 28px #8b5cf6,0 0 75px #7c3aed66;animation:siriPulse 3s ease-in-out infinite}.siri-orb.listening{animation:siriListen .8s ease-in-out infinite alternate}
+@keyframes siriPulse{50%{transform:scale(1.07);filter:hue-rotate(25deg);box-shadow:0 0 48px #c084fc,0 0 95px #7c3aed88}}
+@keyframes siriListen{to{transform:scale(1.16);filter:hue-rotate(65deg);box-shadow:0 0 65px #60a5fa,0 0 110px #a855f7}}
+.siri-status{font-size:14px;color:#d8c9f5;min-height:40px;line-height:1.5}.siri-controls{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}.siri-controls button{border:0;border-radius:13px;padding:12px 16px;background:#7c3aed;color:white;cursor:pointer;font-weight:600}.siri-controls button.secondary{background:#ffffff18}.ai-note{font-size:11px;color:#a1a1aa;line-height:1.45}
+@media(max-width:520px){.ai-launchers{right:14px;bottom:14px}.ai-launcher{width:53px;height:53px;border-radius:17px}.ai-panel{right:10px;bottom:135px;width:calc(100vw - 20px);height:min(520px,calc(100vh - 155px))}}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+<header class="site-nav" id="siteNav7sk">
+  <a class="nav-brand" href="#home" aria-label="7SK — главная">7SK<span>.</span></a>
+  <nav class="nav-tabs" aria-label="Навигация по сайту">
+    <a class="nav-tab active" href="#home">Главная</a>
+    <a class="nav-tab" href="#bike">Велосипеды</a>
+    <a class="nav-tab" href="#advantages">Преимущества</a>
+    <a class="nav-tab" href="#stats">О нас</a>
+    <a class="nav-tab" href="#contact">Контакты</a>
+  </nav>
+  <span class="nav-glow" aria-hidden="true"></span>
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+  <h1>7SK Bicycle Service-Alikhan Bokeikhan University</h1>
+
+  <p>Профессиональный ремонт велосипедов</p>
+
+  <div class="btns">
+
+    <a href="tel:+77059105505">
+      📞 Позвонить
+    </a>
+
+    <a href="https://2gis.kz/semey/geo/70030076253758481/80.286675,50.421759" target="_blank" rel="noopener">
+      📍 2GIS Адрес
+    </a>
+
+    <a href="https://wa.me/77782283283" target="_blank" rel="noopener">
+      💬 WhatsApp
+    </a>
+
+    <a href="services.html">
+      🛠 Услуги
+    </a>
+
+  </div>
+
+</section>
+
+<!-- 3D BICYCLE -->
+
+<section class="bike-section" id="bike">
+
+  <div class="bike-heading reveal">
+
+    <h2>
+      Наш мир — <span>велосипеды</span>
+    </h2>
+
+    <p>
+      7SK Bicycle Service — движение, качество и надёжность
+    </p>
+
+  </div>
+
+  <div class="bike-stage reveal">
+
+    <div class="bike-platform">
+
+      <svg
+              class="bike-svg"
+              viewBox="0 0 900 480"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-label="Стилизованный велосипед с фиолетовой подсветкой"
+      >
+
+        <defs>
+
+          <linearGradient id="frameGradient" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#e9d5ff"/>
+            <stop offset="35%" stop-color="#a855f7"/>
+            <stop offset="70%" stop-color="#6b21a8"/>
+            <stop offset="100%" stop-color="#d8b4fe"/>
+          </linearGradient>
+
+          <linearGradient id="metalGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="50%" stop-color="#777"/>
+            <stop offset="100%" stop-color="#222"/>
+          </linearGradient>
+
+          <filter id="bikeGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="5" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+
+          <filter id="wheelGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+
+        </defs>
+
+        <!-- SHADOW -->
+
+        <ellipse cx="450" cy="405" rx="340" ry="20"
+                 fill="#9333ea" opacity="0.12"/>
+
+        <!-- REAR WHEEL -->
+
+        <g class="wheel-spin rear-wheel" filter="url(#wheelGlow)">
+
+          <circle cx="245" cy="300" r="112"
+                  fill="none" stroke="#17121e" stroke-width="17"/>
+
+          <circle cx="245" cy="300" r="108"
+                  fill="none" stroke="#a855f7" stroke-width="2"
+                  opacity="0.8"/>
+
+          <circle cx="245" cy="300" r="100"
+                  fill="none" stroke="#aaa" stroke-width="1"
+                  opacity="0.4"/>
+
+          <g stroke="#888" stroke-width="1" opacity="0.55">
+
+            <line x1="245" y1="192" x2="245" y2="408"/>
+            <line x1="137" y1="300" x2="353" y2="300"/>
+
+            <line x1="168" y1="223" x2="322" y2="377"/>
+            <line x1="168" y1="377" x2="322" y2="223"/>
+
+            <line x1="204" y1="198" x2="286" y2="402"/>
+            <line x1="204" y1="402" x2="286" y2="198"/>
+
+            <line x1="145" y1="259" x2="345" y2="341"/>
+            <line x1="145" y1="341" x2="345" y2="259"/>
+
+          </g>
+
+          <circle cx="245" cy="300" r="7"
+                  fill="url(#metalGradient)"/>
+
+        </g>
+
+        <!-- FRONT WHEEL -->
+
+        <g class="wheel-spin front-wheel" filter="url(#wheelGlow)">
+
+          <circle cx="675" cy="300" r="112"
+                  fill="none" stroke="#17121e" stroke-width="17"/>
+
+          <circle cx="675" cy="300" r="108"
+                  fill="none" stroke="#a855f7" stroke-width="2"
+                  opacity="0.8"/>
+
+          <circle cx="675" cy="300" r="100"
+                  fill="none" stroke="#aaa" stroke-width="1"
+                  opacity="0.4"/>
+
+          <g stroke="#888" stroke-width="1" opacity="0.55">
+
+            <line x1="675" y1="192" x2="675" y2="408"/>
+            <line x1="567" y1="300" x2="783" y2="300"/>
+
+            <line x1="598" y1="223" x2="752" y2="377"/>
+            <line x1="598" y1="377" x2="752" y2="223"/>
+
+            <line x1="634" y1="198" x2="716" y2="402"/>
+            <line x1="634" y1="402" x2="716" y2="198"/>
+
+            <line x1="575" y1="259" x2="775" y2="341"/>
+            <line x1="575" y1="341" x2="775" y2="259"/>
+
+          </g>
+
+          <circle cx="675" cy="300" r="7"
+                  fill="url(#metalGradient)"/>
+
+        </g>
+
+        <!-- FRAME -->
+
+        <g
+                fill="none"
+                stroke="url(#frameGradient)"
+                stroke-width="13"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                filter="url(#bikeGlow)"
+        >
+
+          <!-- Main frame -->
+
+          <path d="M245 300 L370 145 L510 300 L245 300"/>
+
+          <!-- Top frame -->
+
+          <path d="M370 145 L575 145 L510 300"/>
+
+          <!-- Front fork -->
+
+          <path d="M575 145 L675 300"/>
+
+          <!-- Seat tube -->
+
+          <path d="M370 145 L350 95"/>
+
+          <!-- Seat -->
+
+          <path d="M320 95 L390 95"
+                stroke="#aaa" stroke-width="10"/>
+
+          <!-- Handlebar -->
+
+          <path d="M575 145 L590 100 L635 100"
+                stroke="#aaa" stroke-width="9"/>
+
+          <!-- Steering details -->
+
+          <path d="M575 145 L560 110"
+                stroke="#888" stroke-width="6"/>
+
+          <!-- Pedal system -->
+
+          <path d="M510 300 L490 340 L530 340"
+                stroke="#ddd" stroke-width="7"/>
+
+        </g>
+
+        <!-- CHAIN -->
+
+        <path d="M245 300 L510 300"
+              fill="none"
+              stroke="#bbb"
+              stroke-width="3"
+              stroke-dasharray="5 4"
+              opacity="0.8"/>
+
+        <!-- CHAIN RING -->
+
+        <circle cx="510" cy="300" r="22"
+                fill="none" stroke="#aaa" stroke-width="5"/>
+
+        <circle cx="510" cy="300" r="6"
+                fill="#c084fc"/>
+
+        <!-- BRAND MARK -->
+
+        <text x="420" y="230"
+              fill="#fff"
+              font-size="24"
+              font-weight="bold"
+              letter-spacing="5"
+              text-anchor="middle"
+              opacity="0.9">
+          7SK
+        </text>
+
+        <!-- SMALL HIGHLIGHTS -->
+
+        <circle cx="370" cy="145" r="8" fill="#e9d5ff"/>
+        <circle cx="575" cy="145" r="8" fill="#e9d5ff"/>
+        <circle cx="510" cy="300" r="8" fill="#e9d5ff"/>
+
+      </svg>
+
+    </div>
+
+    <div class="bike-ground"></div>
+
+  </div>
+
+  <div class="bike-caption">
+    <span>7SK</span> · Bicycle Service
+  </div>
+
+</section>
+
+<!-- ADVANTAGES -->
+
+<section class="advantages" id="advantages">
+
+  <h2 class="section-title">
+    Почему выбирают <span>7SK?</span>
+  </h2>
+
+  <p class="section-subtitle">
+    Надёжный сервис для твоего велосипеда
+  </p>
+
+  <div class="advantages-grid">
+
+    <div class="advantage-card reveal">
+      <div class="advantage-icon">🔧</div>
+      <h3>Профессиональный ремонт</h3>
+      <p>Качественный ремонт и обслуживание велосипедов.</p>
+    </div>
+
+    <div class="advantage-card reveal">
+      <div class="advantage-icon">⏱️</div>
+      <h3>Быстрое обслуживание</h3>
+      <p>Стараемся выполнять работу быстро и качественно.</p>
+    </div>
+
+    <div class="advantage-card reveal">
+      <div class="advantage-icon">⚙️</div>
+      <h3>Настройка деталей</h3>
+      <p>Регулировка тормозов, переключателей и других компонентов.</p>
+    </div>
+
+    <div class="advantage-card reveal">
+      <div class="advantage-icon">🎓</div>
+      <h3>Университетский сервис</h3>
+      <p>Велосервис при Alikhan Bokeikhan University.</p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ANIMATED STATISTICS -->
+
+<section class="stats" id="stats">
+
+  <h2 class="section-title">
+    7SK в <span>цифрах</span>
+  </h2>
+
+  <p class="section-subtitle">
+    Наш сервис и возможности
+  </p>
+
+  <div class="stats-grid">
+
+    <div class="stat-item reveal">
+      <div class="stat-number">
+        <span class="counter" data-target="5">0</span>
+      </div>
+      <p>Разделов сайта</p>
+    </div>
+
+    <div class="stat-item reveal">
+      <div class="stat-number">
+        <span class="counter" data-target="2">0</span>
+      </div>
+      <p>Способа связи</p>
+    </div>
+
+    <div class="stat-item reveal">
+      <div class="stat-number">
+        <span class="counter" data-target="1">0</span>
+      </div>
+      <p>Университетский сервис</p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CONTACT -->
+
+<section class="contact" id="contact">
+
+  <h2>Контакты</h2>
+
+  <p>
+    📞 Телефон:
+    <a href="tel:+77782283283">+7 778 228 32 83</a>
+  </p>
+
+  <p>
+    💬 WhatsApp:
+    <a href="https://wa.me/77782283283" target="_blank" rel="noopener">
+      +7 778 228 32 83
+    </a>
+  </p>
+
+  <p>📍 Семей, Казахстан</p>
+
+  <p>
+    <a href="https://2gis.kz/semey/geo/70030076253758481/80.286675,50.421759"
+       target="_blank" rel="noopener">
+      Посмотреть адрес в 2GIS
+    </a>
+  </p>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  © 2026 7SK Bicycle Service | Alikhan Bokeikhan University
+  <br><br>
+  Сделано с ❤️ для велосипедистов
+</footer>
+
+
+<!-- Плавающие кнопки AI-помощника и Siri -->
+<div class="ai-launchers" aria-label="AI помощники">
+  <button class="ai-launcher" id="openChat7sk" title="ChatGPT помощник" aria-label="Открыть ChatGPT">✦</button>
+  <button class="ai-launcher siri" id="openSiri7sk" title="Голосовой помощник" aria-label="Открыть Siri">◉</button>
+</div>
+
+<section class="ai-panel" id="chatPanel7sk" aria-label="Чат с AI">
+  <div class="ai-head"><strong>✦ 7SK AI — ChatGPT</strong><div class="ai-head-actions"><button class="ai-clear" id="clearChat7sk" type="button">Очистить</button><button class="ai-close" data-close="chatPanel7sk" aria-label="Закрыть">×</button></div></div>
+  <div class="ai-messages" id="chatMessages7sk"><div class="ai-message bot">Привет! Я AI-помощник 7SK. Могу поддерживать диалог, помнить контекст этой переписки и помогать не только с велосипедом. Чем займёмся?</div></div>
+  <form class="ai-form" id="chatForm7sk"><input id="chatInput7sk" type="text" maxlength="2000" placeholder="Напишите сообщение… (Enter — отправить)" autocomplete="off" required><button class="ai-send" id="chatSend7sk" type="submit">➤</button></form>
+</section>
+
+<section class="ai-panel" id="siriPanel7sk" aria-label="Голосовой помощник">
+  <div class="ai-head"><strong>◉ 7SK Voice Assistant</strong><button class="ai-close" data-close="siriPanel7sk" aria-label="Закрыть">×</button></div>
+  <div class="siri-content"><div class="siri-orb" id="siriOrb7sk"></div><div class="siri-status" id="siriStatus7sk">Нажми «Начать разговор» и разреши доступ к микрофону. Я отвечу голосом и смогу продолжить диалог.</div><div class="siri-controls"><button id="startSiri7sk" type="button">🎙 Начать разговор</button><button class="secondary" id="stopSiri7sk" type="button">Остановить</button></div><div class="ai-note">Голосовой диалог использует тот же AI и историю чата. После ответа я снова включу прослушивание. Для микрофона нужен HTTPS или localhost.</div></div>
+</section>
+
+<!-- BACK TO TOP -->
+
+<button class="top-button" id="topButton" aria-label="Наверх">
+  ↑
+</button>
+
+<script>
+
+/* SIRI-STYLE GLOWING AURORA BACKGROUND */
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+let width = 0;
+let height = 0;
+let tick = 0;
+
+function resize() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  width = window.innerWidth;
+  height = window.innerHeight;
+  canvas.width = Math.floor(width * dpr);
+  canvas.height = Math.floor(height * dpr);
+  canvas.style.width = width + "px";
+  canvas.style.height = height + "px";
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+resize();
+window.addEventListener("resize", resize);
+
+function drawAuroraBlob(cx, cy, radius, color, phase, stretchX, stretchY) {
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.scale(stretchX, stretchY);
+  ctx.rotate(Math.sin(tick * 0.006 + phase) * 0.45);
+
+  const gradient = ctx.createRadialGradient(0, 0, radius * 0.05, 0, 0, radius);
+  gradient.addColorStop(0, color);
+  gradient.addColorStop(0.45, color.replace(/[\d.]+\)$/, "0.24)"));
+  gradient.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.fillStyle = gradient;
+  ctx.beginPath();
+
+  const points = 90;
+  for (let i = 0; i <= points; i++) {
+    const a = (i / points) * Math.PI * 2;
+    const wave = 1 + 0.13 * Math.sin(a * 3 + tick * 0.018 + phase)
+                   + 0.07 * Math.cos(a * 5 - tick * 0.012 + phase);
+    const r = radius * wave;
+    const x = Math.cos(a) * r;
+    const y = Math.sin(a) * r;
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+  ctx.shadowBlur = 42;
+  ctx.shadowColor = color;
+  ctx.fill();
+  ctx.restore();
+}
+
+function animateSiri() {
+  tick++;
+  ctx.clearRect(0, 0, width, height);
+
+  // Мягкое свечение в центре, как у Siri, но в фиолетовой палитре сайта.
+  const cx = width * 0.5;
+  const cy = height * 0.48;
+  const base = Math.min(width, height) * 0.34;
+
+  ctx.globalCompositeOperation = "screen";
+  drawAuroraBlob(
+    cx + Math.sin(tick * 0.009) * base * 0.18,
+    cy + Math.cos(tick * 0.008) * base * 0.12,
+    base * 0.95,
+    "rgba(124,58,237,0.42)", 0.2, 1.35, 0.72
+  );
+  drawAuroraBlob(
+    cx + Math.cos(tick * 0.011 + 1) * base * 0.2,
+    cy + Math.sin(tick * 0.01 + 1) * base * 0.15,
+    base * 0.78,
+    "rgba(217,70,239,0.34)", 2.1, 1.2, 0.78
+  );
+  drawAuroraBlob(
+    cx + Math.sin(tick * 0.007 + 2) * base * 0.13,
+    cy + Math.cos(tick * 0.012 + 2) * base * 0.12,
+    base * 0.62,
+    "rgba(59,130,246,0.28)", 4.1, 1.45, 0.62
+  );
+
+  // Тонкие световые волны поверх цветного свечения.
+  for (let j = 0; j < 3; j++) {
+    ctx.beginPath();
+    const yBase = cy + (j - 1) * base * 0.23;
+    for (let x = -40; x <= width + 40; x += 8) {
+      const dx = (x - cx) / Math.max(width, 1);
+      const envelope = Math.exp(-dx * dx * 9);
+      const y = yBase
+        + Math.sin(x * 0.009 + tick * 0.025 + j * 1.8) * base * 0.13 * envelope
+        + Math.cos(x * 0.004 - tick * 0.018 + j) * base * 0.07 * envelope;
+      if (x === -40) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = [
+      "rgba(168,85,247,0.22)",
+      "rgba(217,70,239,0.18)",
+      "rgba(96,165,250,0.16)"
+    ][j];
+    ctx.lineWidth = 2.2;
+    ctx.shadowBlur = 18;
+    ctx.shadowColor = "#a855f7";
+    ctx.stroke();
+  }
+
+  ctx.globalCompositeOperation = "source-over";
+  requestAnimationFrame(animateSiri);
+}
+animateSiri();
+
+/* SCROLL REVEAL */
+
+const revealElements = document.querySelectorAll(".reveal");
+
+const revealObserver = new IntersectionObserver((entries) => {
+
+  entries.forEach(entry => {
+
+    if (entry.isIntersecting) {
+      entry.target.classList.add("active");
+      revealObserver.unobserve(entry.target);
+    }
+
+  });
+
+}, {
+  threshold: 0.12
+});
+
+revealElements.forEach(element => {
+  revealObserver.observe(element);
+});
+
+/* ANIMATED COUNTERS */
+
+const counters = document.querySelectorAll(".counter");
+
+const counterObserver = new IntersectionObserver((entries) => {
+
+  entries.forEach(entry => {
+
+    if (entry.isIntersecting) {
+
+      const counter = entry.target;
+      const target = Number(counter.dataset.target);
+      const duration = 1600;
+      const startTime = performance.now();
+
+      function updateCounter(now) {
+
+        const progress = Math.min(
+          (now - startTime) / duration, 1
+        );
+
+        const eased = 1 - Math.pow(1 - progress, 4);
+
+        counter.textContent = Math.floor(target * eased);
+
+        if (progress < 1) {
+          requestAnimationFrame(updateCounter);
+        } else {
+          counter.textContent = target;
+        }
+
+      }
+
+      requestAnimationFrame(updateCounter);
+      counterObserver.unobserve(counter);
+
+    }
+
+  });
+
+}, {
+  threshold: 0.5
+});
+
+counters.forEach(counter => {
+  counterObserver.observe(counter);
+});
+
+/* BACK TO TOP */
+
+const topButton = document.getElementById("topButton");
+
+window.addEventListener("scroll", () => {
+
+  if (window.scrollY > 400) {
+    topButton.classList.add("show");
+  } else {
+    topButton.classList.remove("show");
+  }
+
+});
+
+topButton.addEventListener("click", () => {
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+});
+
+
+/* ===== 7SK CHATGPT + VOICE ASSISTANT: SHARED CONVERSATION ===== */
+(() => {
+  const chatPanel = document.getElementById('chatPanel7sk');
+  const siriPanel = document.getElementById('siriPanel7sk');
+  const messages = document.getElementById('chatMessages7sk');
+  const chatForm = document.getElementById('chatForm7sk');
+  const chatInput = document.getElementById('chatInput7sk');
+  const sendButton = document.getElementById('chatSend7sk');
+  const siriStatus = document.getElementById('siriStatus7sk');
+  const siriOrb = document.getElementById('siriOrb7sk');
+  const startVoiceButton = document.getElementById('startSiri7sk');
+  const HISTORY_KEY = '7sk_assistant_history_v1';
+  let conversation = [];
+  let recognition = null;
+  let micStream = null;
+  let isSending = false;
+  let voiceMode = false;
+  let restartingVoice = false;
+
+  try {
+    const saved = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+    if (Array.isArray(saved)) conversation = saved.filter(m => m && ['user','assistant'].includes(m.role) && typeof m.content === 'string').slice(-24);
+  } catch (_) { conversation = []; }
+
+  function saveHistory() {
+    try { localStorage.setItem(HISTORY_KEY, JSON.stringify(conversation.slice(-24))); } catch (_) {}
+  }
+  function renderHistory() {
+    messages.innerHTML = '';
+    if (!conversation.length) {
+      addMessage('Привет! Я AI-помощник 7SK. Могу поддерживать диалог и помогать с разными вопросами. Чем займёмся?', 'bot');
+      return;
+    }
+    conversation.forEach(m => addMessage(m.content, m.role === 'user' ? 'user' : 'bot'));
+  }
+  function openPanel(panel) {
+    chatPanel.classList.remove('open');
+    siriPanel.classList.remove('open');
+    panel.classList.add('open');
+  }
+  document.getElementById('openChat7sk').addEventListener('click', () => { openPanel(chatPanel); chatInput.focus(); });
+  document.getElementById('openSiri7sk').addEventListener('click', () => openPanel(siriPanel));
+  document.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', () => document.getElementById(btn.dataset.close).classList.remove('open')));
+
+  function addMessage(text, who, typing = false) {
+    const item = document.createElement('div');
+    item.className = 'ai-message ' + who + (typing ? ' typing' : '');
+    if (typing) item.innerHTML = '<i></i><i></i><i></i>';
+    else item.textContent = text;
+    messages.appendChild(item);
+    messages.scrollTop = messages.scrollHeight;
+    return item;
+  }
+
+  async function askAssistant() {
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: conversation.slice(-24) })
+    });
+    let data = {};
+    try { data = await response.json(); } catch (_) {}
+    if (!response.ok) throw new Error(data.error || `Ошибка сервера (${response.status})`);
+    if (!data.reply) throw new Error('Сервер не вернул ответ.');
+    return data.reply;
+  }
+
+  async function sendQuestion(question, showInChat = true) {
+    question = String(question || '').trim();
+    if (isSending || !question) return null;
+    isSending = true;
+    sendButton.disabled = true;
+    conversation.push({ role: 'user', content: question });
+    conversation = conversation.slice(-24);
+    saveHistory();
+    if (showInChat) addMessage(question, 'user');
+    const waiting = showInChat ? addMessage('', 'bot', true) : null;
+    try {
+      const reply = await askAssistant();
+      conversation.push({ role: 'assistant', content: reply });
+      conversation = conversation.slice(-24);
+      saveHistory();
+      if (waiting) { waiting.classList.remove('typing'); waiting.innerHTML = ''; waiting.textContent = reply; }
+      else addMessage(reply, 'bot');
+      return reply;
+    } catch (error) {
+      conversation.pop();
+      saveHistory();
+      const message = error.message.includes('Failed to fetch') || error.message.includes('NetworkError')
+        ? 'Не удалось подключиться к AI-серверу. Проверь, что Node.js сервер запущен и сайт открыт с него, а не как отдельный HTML-файл.'
+        : error.message;
+      if (waiting) { waiting.classList.remove('typing'); waiting.textContent = message; }
+      else addMessage(message, 'bot');
+      return null;
+    } finally {
+      isSending = false;
+      sendButton.disabled = false;
+    }
+  }
+
+  document.getElementById('clearChat7sk').addEventListener('click', () => {
+    conversation = [];
+    saveHistory();
+    renderHistory();
+  });
+  chatForm.addEventListener('submit', async event => {
+    event.preventDefault();
+    const question = chatInput.value.trim();
+    if (!question || isSending) return;
+    chatInput.value = '';
+    await sendQuestion(question, true);
+  });
+
+  function speak(text) {
+    return new Promise(resolve => {
+      if (!('speechSynthesis' in window)) { resolve(); return; }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ru-RU';
+      utterance.rate = 1;
+      utterance.onend = resolve;
+      utterance.onerror = resolve;
+      window.speechSynthesis.speak(utterance);
+    });
+  }
+
+  async function stopListening() {
+    voiceMode = false;
+    restartingVoice = false;
+    if (recognition) { try { recognition.onend = null; recognition.stop(); } catch (_) {} recognition = null; }
+    if (micStream) { micStream.getTracks().forEach(track => track.stop()); micStream = null; }
+    siriOrb.classList.remove('listening');
+    startVoiceButton.textContent = '🎙 Начать разговор';
+  }
+
+  async function startRecognition() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!voiceMode || isSending || restartingVoice) return;
+    const rec = new SpeechRecognition();
+    recognition = rec;
+    rec.lang = 'ru-RU';
+    rec.interimResults = false;
+    rec.maxAlternatives = 1;
+    rec.onstart = () => { siriOrb.classList.add('listening'); siriStatus.textContent = 'Слушаю тебя… Говори.'; };
+    rec.onresult = async event => {
+      const spoken = event.results[event.results.length - 1][0].transcript.trim();
+      if (!spoken) return;
+      siriOrb.classList.remove('listening');
+      siriStatus.textContent = 'Ты сказал: «' + spoken + '». Думаю…';
+      try { rec.stop(); } catch (_) {}
+      const reply = await sendQuestion(spoken, true);
+      if (reply && voiceMode) {
+        siriStatus.textContent = reply;
+        await speak(reply);
+      } else if (!reply) {
+        siriStatus.textContent = 'Не получилось получить ответ. Проверь AI-сервер.';
+      }
+      if (voiceMode) {
+        restartingVoice = true;
+        setTimeout(() => { restartingVoice = false; if (voiceMode) startRecognition(); }, 350);
+      }
+    };
+    rec.onerror = event => {
+      siriOrb.classList.remove('listening');
+      if (event.error === 'not-allowed') {
+        siriStatus.textContent = 'Доступ к микрофону запрещён. Разреши микрофон в настройках сайта возле адресной строки.';
+        stopListening();
+      } else if (event.error !== 'no-speech' && voiceMode) {
+        siriStatus.textContent = 'Ошибка распознавания: ' + event.error + '. Попробую снова…';
+      }
+    };
+    rec.onend = () => {
+      siriOrb.classList.remove('listening');
+      if (voiceMode && !isSending && !restartingVoice) {
+        restartingVoice = true;
+        setTimeout(() => { restartingVoice = false; if (voiceMode) startRecognition(); }, 450);
+      }
+    };
+    try { rec.start(); } catch (_) {}
+  }
+
+  document.getElementById('stopSiri7sk').addEventListener('click', async () => {
+    await stopListening();
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    siriStatus.textContent = 'Разговор остановлен. Нажми «Начать разговор», чтобы продолжить.';
+  });
+
+  startVoiceButton.addEventListener('click', async () => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      siriStatus.textContent = 'Браузер не поддерживает доступ к микрофону. Открой сайт через HTTPS.';
+      return;
+    }
+    if (!SpeechRecognition) {
+      siriStatus.textContent = 'Распознавание речи не поддерживается. Используй актуальный Google Chrome или Microsoft Edge.';
+      return;
+    }
+    try {
+      siriStatus.textContent = 'Запрашиваю разрешение на микрофон…';
+      micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      voiceMode = true;
+      startVoiceButton.textContent = '🟢 Разговор активен';
+      siriStatus.textContent = 'Микрофон включён. Можешь говорить.';
+      startRecognition();
+    } catch (error) {
+      siriStatus.textContent = error.name === 'NotAllowedError'
+        ? 'Ты запретил доступ к микрофону. Нажми значок настройки возле адреса сайта → Микрофон → Разрешить.'
+        : 'Не удалось включить микрофон. Проверь HTTPS и настройки браузера.';
+    }
+  });
+
+  renderHistory();
+})();
+
+/* NAVIGATION: animated active tab follows the visible section */
+(() => {
+  const links = [...document.querySelectorAll('.nav-tab')];
+  const targets = links.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+  links.forEach(link => link.addEventListener('click', () => {
+    links.forEach(item => item.classList.toggle('active', item === link));
+  }));
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const active = links.find(link => link.getAttribute('href') === '#' + entry.target.id);
+        if (active) links.forEach(link => link.classList.toggle('active', link === active));
+      });
+    }, { rootMargin: '-30% 0px -55% 0px', threshold: 0 });
+    targets.forEach(target => observer.observe(target));
+  }
+})();
+
+</script>
+
+</body>
+</html>

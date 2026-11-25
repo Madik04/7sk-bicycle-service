@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Заявка на ремонт велосипеда</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#0a0a0a,#111);
+color:#fff;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.box{
+width:92%;
+max-width:520px;
+background:rgba(255,255,255,0.04);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.08);
+padding:22px;
+border-radius:20px;
+}
+
+h2{
+margin:0 0 10px;
+}
+
+p{
+opacity:0.7;
+font-size:13px;
+margin-bottom:12px;
+}
+
+input,textarea{
+width:100%;
+padding:14px;
+margin:8px 0;
+border-radius:12px;
+border:none;
+outline:none;
+background:#1a1a1a;
+color:#fff;
+font-size:14px;
+}
+
+textarea{
+height:100px;
+resize:none;
+}
+
+/* кнопки да/нет */
+.toggle{
+display:flex;
+gap:10px;
+margin:10px 0;
+}
+
+.toggle button{
+flex:1;
+padding:12px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+background:#1a1a1a;
+color:#fff;
+transition:0.2s;
+}
+
+.toggle button.active{
+background:#8b5cf6;
+}
+
+/* файл */
+.fileBox{
+display:none;
+}
+
+button.send{
+width:100%;
+padding:15px;
+margin-top:12px;
+border:none;
+border-radius:14px;
+background:#8b5cf6;
+color:#fff;
+font-size:15px;
+cursor:pointer;
+}
+
+.note{
+font-size:12px;
+opacity:0.6;
+margin-top:10px;
+text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>🚴 Заявка на ремонт</h2>
+<p>Опиши проблему — мастер свяжется с тобой</p>
+
+<input id="name" placeholder="👤 Ваше имя">
+
+<textarea id="problem" placeholder="🔧 Что случилось?"></textarea>
+
+<!-- ФОТО ВКЛ/ВЫКЛ -->
+<div style="margin-top:10px;">📸 Есть фото/видео?</div>
+
+<div class="toggle">
+<button id="yesBtn" onclick="toggleFile(true)">Да</button>
+<button id="noBtn" class="active" onclick="toggleFile(false)">Нет</button>
+</div>
+
+<div class="fileBox" id="fileBox">
+<input type="file" id="file" accept="image/*,video/*">
+</div>
+
+<button class="send" onclick="send()">📲 Отправить заявку</button>
+
+<div class="note">Откроется WhatsApp</div>
+
+</div>
+
+<script>
+
+let hasFile = false;
+
+function toggleFile(state){
+hasFile = state;
+
+document.getElementById("yesBtn").classList.toggle("active", state);
+document.getElementById("noBtn").classList.toggle("active", !state);
+
+document.getElementById("fileBox").style.display =
+state ? "block" : "none";
+}
+
+function send(){
+
+let name = document.getElementById("name").value;
+let problem = document.getElementById("problem").value;
+let file = document.getElementById("file").files[0];
+
+if(!name || !problem){
+alert("Заполни имя и проблему");
+return;
+}
+
+let myNumber = "77782283283";
+
+let text =
+`🚴 НОВАЯ ЗАЯВКА%0A%0A` +
+`👤 Имя: ${name}%0A` +
+`🔧 Проблема: ${problem}%0A`;
+
+if(hasFile && file){
+text += `%0A📎 Фото/видео: есть (прикреплено в WhatsApp)`;
+}else{
+text += `%0A📎 Фото/видео: нет`;
+}
+
+text += `%0A%0A⚡ Готов ответить клиенту`;
+
+let url = "https://wa.me/" + myNumber + "?text=" + encodeURIComponent(text);
+
+window.open(url, "_blank");
+}
+
+</script>
+
+</body>
+</html>

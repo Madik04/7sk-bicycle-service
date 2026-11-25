@@ -1,0 +1,240 @@
+body{
+margin:0;
+font-family:Arial;
+background:#0b0b0b;
+color:white;
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+background:#111;
+position:sticky;
+top:0;
+}
+
+.logo{
+font-size:24px;
+font-weight:bold;
+color:#9c4dff;
+}
+
+.nav{
+display:flex;
+gap:25px;
+}
+
+.nav a{
+color:white;
+text-decoration:none;
+font-size:16px;
+}
+
+.nav a:hover{
+color:#9c4dff;
+}
+
+.hero{
+height:90vh;
+background:url("https://images.unsplash.com/photo-1541625602330-2277a4c46182") center/cover;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+.hero-content{
+background:rgba(0,0,0,0.6);
+padding:40px;
+border-radius:20px;
+}
+
+.hero h1{
+font-size:50px;
+}
+
+.hero p{
+font-size:20px;
+}
+
+.buttons{
+margin-top:20px;
+}
+
+.btn{
+padding:12px 30px;
+background:#9c4dff;
+color:white;
+border-radius:10px;
+text-decoration:none;
+margin:10px;
+display:inline-block;
+}
+
+.whatsapp-btn{
+background:#25D366;
+}
+
+.services{
+padding:80px 20px;
+text-align:center;
+}
+
+.cards{
+display:flex;
+justify-content:center;
+gap:30px;
+flex-wrap:wrap;
+margin-top:40px;
+}
+
+.card{
+background:#141414;
+padding:30px;
+width:250px;
+border-radius:15px;
+box-shadow:0 0 15px rgba(156,77,255,0.2);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 25px rgba(156,77,255,0.6);
+}
+
+.contacts{
+text-align:center;
+padding:60px;
+background:#111;
+}
+
+.whatsapp{
+position:fixed;
+bottom:25px;
+right:25px;
+background:#25D366;
+padding:15px;
+border-radius:50%;
+font-size:26px;
+text-decoration:none;
+color:white;
+}
+
+footer{
+text-align:center;
+padding:25px;
+background:#111;
+}   
+.category-title {
+  grid-column: 1 / -1; /* Занимает всю ширину сетки */
+  text-align: center;  /* По центру текста */
+  font-size: 28px;
+  font-weight: bold;
+  color: #8a5cff;
+  margin: 40px 0 20px 0;
+  text-shadow: 0 0 10px #8a5cff;
+}
+#toast{
+position:fixed;
+bottom:30px;
+left:50%;
+transform:translateX(-50%);
+background:#141428;
+color:white;
+padding:14px 22px;
+border-radius:12px;
+box-shadow:0 0 20px rgba(138,92,255,0.6);
+font-size:15px;
+opacity:0;
+pointer-events:none;
+transition:0.4s;
+z-index:9999;
+}
+
+#toast.show{
+opacity:1;
+transform:translateX(-50%) translateY(-10px);
+}
+
+#toast.success{
+border:1px solid #25d366;
+}
+
+#toast.error{
+border:1px solid #ff4d4d;
+}
+
+#reviewsList{
+  text-align:left;
+  margin-top:10px;
+}
+
+.review-item{
+  background: rgba(124,58,237,0.08);
+  border: 1px solid rgba(124,58,237,0.2);
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.review-item:hover{
+  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(124,58,237,0.25);
+}
+
+.review-item b{
+  color:#a78bfa;
+}
+
+/* ===== АНИМАЦИЯ ПЕРЕКЛЮЧЕНИЯ ВКЛАДОК ===== */
+
+.card {
+    animation: cardAppear 0.45s cubic-bezier(.22,1,.36,1) both;
+    transition: transform .3s, box-shadow .3s;
+}
+
+.card.leaving {
+    animation: cardDisappear .18s ease forwards;
+    pointer-events: none;
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(.94);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes cardDisappear {
+    to {
+        opacity: 0;
+        transform: translateY(-12px) scale(.96);
+        filter: blur(4px);
+    }
+}
+
+.top-cat {
+    transition: all .3s ease;
+}
+
+.top-cat.active {
+    background: #8b5cf6;
+    box-shadow: 0 0 18px rgba(139,92,246,.5);
+    transform: scale(1.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card, .top-cat {
+        animation: none !important;
+        transition: none !important;
+    }
+}

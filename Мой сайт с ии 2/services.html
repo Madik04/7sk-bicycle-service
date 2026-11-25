@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7SK Bicycle Repair PRO</title>
+
+<style>
+
+/* ===== BACKGROUND ===== */
+
+#bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
+}
+
+/* ===== BODY ===== */
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#000;
+color:#fff;
+overflow-x:hidden;
+}
+
+/* ===== HEADER ===== */
+
+.header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+z-index:1000;
+padding:14px 18px;
+box-sizing:border-box;
+backdrop-filter:blur(18px);
+background:rgba(0,0,0,0.55);
+border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-size:22px;
+font-weight:bold;
+}
+
+.header-buttons{
+display:flex;
+gap:10px;
+}
+
+.head-btn{
+background:#8b5cf6;
+border:none;
+color:#fff;
+width:46px;
+height:46px;
+border-radius:14px;
+cursor:pointer;
+font-size:18px;
+}
+
+/* ===== CATEGORIES ===== */
+
+.top-categories{
+display:flex;
+gap:6px;
+overflow-x:auto;
+
+/* ВАЖНО: делаем компактно */
+padding:20px 8px;
+
+/* поднимаем вверх */
+position:fixed;
+top:60px;
+left:0;
+right:0;
+
+z-index:999;
+
+/* чтобы не было “огромной панели” */
+background:rgba(0,0,0,0.35);
+backdrop-filter:blur(15px);
+}
+
+.top-categories::-webkit-scrollbar{
+display:none;
+}
+
+.top-categories::-webkit-scrollbar{
+display:none;
+}
+
+.top-cat{
+border:none;
+background:rgba(255,255,255,0.05);
+color:white;
+padding:5px 9px;
+border-radius:12px;
+cursor:pointer;
+font-size:16px;
+font-weight:600;
+white-space:nowrap;
+transition:0.2s;
+}
+
+.top-cat:hover{
+transform:translateY(-2px);
+}
+
+.top-cat.active{
+background:#8b5cf6;
+}
+
+/* ===== MAIN ===== */
+
+.wrapper{
+padding:110px 16px 130px;
+max-width:1400px;
+margin:auto;
+}
+
+/* ===== HERO ===== */
+
+.hero{
+background:linear-gradient(
+135deg,
+rgba(139,92,246,0.25),
+rgba(0,0,0,0.45)
+);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:28px;
+padding:34px;
+margin-bottom:22px;
+position:relative;
+overflow:hidden;
+}
+
+.hero::before{
+content:"";
+position:absolute;
+width:250px;
+height:250px;
+background:#8b5cf6;
+filter:blur(120px);
+right:-100px;
+top:-100px;
+opacity:0.5;
+}
+
+.hero h1{
+font-size:42px;
+margin:0;
+position:relative;
+z-index:2;
+}
+
+.hero p{
+font-size:16px;
+opacity:0.8;
+margin-top:14px;
+max-width:700px;
+line-height:1.5;
+position:relative;
+z-index:2;
+}
+
+.hero button{
+margin-top:20px;
+padding:14px 18px;
+border:none;
+border-radius:14px;
+background:#8b5cf6;
+color:#fff;
+cursor:pointer;
+font-size:14px;
+position:relative;
+z-index:2;
+}
+
+/* ===== SEARCH ===== */
+
+.search{
+margin-bottom:20px;
+}
+
+.search input{
+width:100%;
+padding:16px;
+border:none;
+outline:none;
+border-radius:16px;
+background:rgba(255,255,255,0.05);
+color:#fff;
+box-sizing:border-box;
+font-size:15px;
+}
+
+/* ===== SERVICES ===== */
+
+.services{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:18px;
+}
+
+/* ===== CARD ===== */
+
+.card{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.06);
+border-radius:24px;
+padding:22px;
+backdrop-filter:blur(14px);
+position:relative;
+overflow:hidden;
+transition:0.25s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+box-shadow:0 0 25px rgba(139,92,246,0.25);
+}
+
+.card::before{
+content:"";
+position:absolute;
+width:180px;
+height:180px;
+background:#8b5cf6;
+filter:blur(100px);
+right:-80px;
+top:-80px;
+opacity:0.2;
+}
+
+.card h3{
+margin:0;
+font-size:20px;
+position:relative;
+z-index:2;
+}
+
+.desc{
+opacity:0.75;
+font-size:14px;
+line-height:1.5;
+margin-top:10px;
+min-height:50px;
+position:relative;
+z-index:2;
+}
+
+.price{
+color:#8b5cf6;
+font-size:28px;
+font-weight:bold;
+margin:18px 0;
+position:relative;
+z-index:2;
+}
+
+.card button{
+width:100%;
+padding:13px;
+border:none;
+border-radius:14px;
+background:#8b5cf6;
+color:#fff;
+cursor:pointer;
+font-size:14px;
+position:relative;
+z-index:2;
+}
+
+/* ===== CART ===== */
+
+.cart{
+position:fixed;
+right:18px;
+top:90px;
+width:330px;
+max-height:70vh;
+overflow:auto;
+background:rgba(0,0,0,0.92);
+backdrop-filter:blur(20px);
+border-radius:24px;
+padding:20px;
+display:none;
+z-index:3000;
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.cart h2{
+margin-top:0;
+}
+
+.cart-item{
+display:flex;
+justify-content:space-between;
+margin-bottom:12px;
+padding-bottom:12px;
+border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.total{
+margin-top:20px;
+font-size:24px;
+color:#8b5cf6;
+}
+
+/* ===== MODAL ===== */
+
+.modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:4000;
+padding:20px;
+box-sizing:border-box;
+}
+
+.modal-box{
+background:#111;
+border:1px solid rgba(255,255,255,0.08);
+border-radius:28px;
+padding:28px;
+max-width:520px;
+width:100%;
+max-height:80vh;
+overflow:auto;
+}
+
+.modal-box h2{
+margin-top:0;
+font-size:28px;
+}
+
+.modal-box p{
+opacity:0.8;
+line-height:1.7;
+font-size:15px;
+}
+
+.modal-price{
+color:#8b5cf6;
+font-size:30px;
+font-weight:bold;
+margin:18px 0;
+}
+
+.modal-buttons{
+display:flex;
+gap:12px;
+}
+
+.modal-buttons button{
+flex:1;
+padding:14px;
+border:none;
+border-radius:14px;
+cursor:pointer;
+font-size:14px;
+}
+
+.add-btn{
+background:#8b5cf6;
+color:#fff;
+}
+
+.close-btn{
+background:#222;
+color:#fff;
+}
+
+/* ===== MOBILE ===== */
+
+@media(max-width:900px){
+
+.services{
+grid-template-columns:1fr;
+}
+
+.hero{
+padding:26px;
+}
+
+.hero h1{
+font-size:32px;
+}
+
+.cart{
+width:92%;
+left:50%;
+transform:translateX(-50%);
+right:auto;
+top:auto;
+bottom:20px;
+}
+
+}
+
+/* ===== SCROLL ===== */
+
+::-webkit-scrollbar{
+width:6px;
+height:6px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#8b5cf6;
+border-radius:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<!-- HEADER -->
+
+<div class="header">
+
+<div class="top">
+
+<div class="logo">
+🚴 7SK BIKE SERVICE
+</div>
+
+<div class="header-buttons">
+
+<button class="head-btn" onclick="window.location.href='index.html'">
+🏠
+</button>
+<button class="head-btn" onclick="toggleCart()">
+🛒
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CATEGORIES -->
+
+<div class="top-categories">
+
+<button class="top-cat active" onclick="setCategory('all',this)">
+🔥 Все
+</button>
+
+<button class="top-cat" onclick="setCategory('transmission',this)">
+⚙ Трансмиссия
+</button>
+
+<button class="top-cat" onclick="setCategory('wheels',this)">
+🛞 Колёса
+</button>
+
+<button class="top-cat" onclick="setCategory('brakes',this)">
+🛑 Тормоза
+</button>
+
+<button class="top-cat" onclick="setCategory('to',this)">
+🔧 ТО велосипеда
+</button>
+
+<button class="top-cat" onclick="setCategory('do',this)">
+Другое
+</button>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="wrapper">
+
+<div class="hero">
+
+<h1>7SK BIKE SERVICE</h1>
+
+<p>
+Профессиональный ремонт, настройка и полное обслуживание велосипедов любого уровня.
+Качественный сервис, профессиональный инструмент и индивидуальный подход к каждому клиенту.
+</p>
+
+<button onclick="window.scrollTo({top:600,behavior:'smooth'})">
+Записаться
+</button>
+
+</div>
+
+<div class="search">
+
+<input
+type="text"
+id="search"
+placeholder="Поиск услуг..."
+oninput="renderServices()">
+
+</div>
+
+<div class="services" id="services"></div>
+
+</div>
+
+<!-- CART -->
+
+<div class="cart" id="cart">
+
+<h2>Корзина</h2>
+
+<div id="cartItems"></div>
+
+<div class="total">
+Итого: <span id="total">0</span>₸
+</div>
+
+<div style="margin-top:15px;">
+  <button onclick="openWhatsAppOrder()" style="
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:14px;
+    background:#25D366;
+    color:#fff;
+    font-size:15px;
+    cursor:pointer;
+  ">
+    📲 Оформить заказ в WhatsApp
+  </button>
+</div>
+
+</div>
+
+<!-- MODAL -->
+
+<div class="modal" id="modal">
+
+<div class="modal-box">
+
+<h2 id="modalTitle"></h2>
+
+<p id="modalText"></p>
+
+<div class="modal-price" id="modalPrice"></div>
+
+<div class="modal-buttons">
+
+<button class="add-btn" onclick="addCurrentService()">
+Добавить в корзину
+</button>
+
+<button class="close-btn" onclick="closeModal()">
+Закрыть
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function openWhatsAppOrder(){
+
+if(cart.length === 0){
+alert("Корзина пустая");
+return;
+}
+
+let name = prompt("Введите имя:");
+if(!name) return;
+
+let itemsText = cart.map(i => `- ${i.name} (${i.price}₸)`).join("\n");
+
+let total = cart.reduce((sum,i)=>sum+i.price,0);
+
+/* ТВОЙ НОМЕР WHATSAPP */
+let myNumber = "77782283283";
+
+let message =
+`Здравствуйте! Новый заказ:%0A%0A` +
+`Имя: ${name}%0A` +
+`Услуги:%0A${itemsText}%0A%0A` +
+`Итого: ${total}₸`;
+
+let url = `https://wa.me/${myNumber}?text=${message}`;
+
+window.open(url, "_blank");
+}
+
+/* ===== DATA ===== */
+
+let currentCategory = "all";
+let cart = [];
+let currentService = null;
+
+const services = [
+
+{
+category:"transmission",
+name:"Настройка переключателей",
+price:2500,
+desc:"Точная настройка скоростей",
+details:"Полная настройка переднего и заднего переключателя. Проверка натяжения троса, устранение хруста, плохого переключения и корректировка работы трансмиссии."
+},
+
+{
+category:"transmission",
+name:"Замена цепи",
+price:3000,
+desc:"Установка новой цепи",
+details:"Снятие старой цепи, подбор подходящей новой цепи, установка и проверка совместимости с кассетой."
+},
+
+{
+category:"transmission",
+name:"Замена кассеты",
+price:4500,
+desc:"Установка новой кассеты",
+details:"Демонтаж старой кассеты, установка новой и настройка переключения скоростей."
+},
+
+{
+category:"transmission",
+name:"Обслуживание каретки",
+price:2000,
+desc:"Смазка и диагностика",
+details:"Чистка, смазка и проверка люфта."
+},
+
+{
+category:"transmission",
+name:"Замена шатунов",
+price:3000,
+desc:"Повреждение или износ шатунов",
+details:"Демонтаж старых и установка новых шатунов."
+},
+
+{
+category:"transmission",
+name:"Замена педалей",
+price:1500,
+desc:"Люфт или поломка педалей",
+details:"Снятие старых и установка новых педалей."
+},
+
+{
+category:"transmission",
+name:"Замена троса переключения",
+price:2000,
+desc:"Скорости плохо переключается",
+details:"Установка нового троса и настройка."
+},
+
+
+
+{
+category:"wheels",
+name:"Замена камеры",
+price:1000,
+desc:"Быстрая установка камеры",
+details:"Снятие колеса, установка новой камеры, проверка покрышки и правильного давления."
+},
+
+{
+category:"wheels",
+name:"Ремонт прокола камеры",
+price:500,
+desc:"Прокол камеры",
+details:"Пойск дырки и закоейка камеры 1-дырка 500-тенге"
+},
+
+{
+category:"wheels",
+name:"Замена покрышки",
+price:1000,
+desc:"Изношенная или порванная покрышка",
+details:"Снятие старой и установка новой покрышки"
+},
+
+{
+category:"wheels",
+name:"Подкачка колес",
+price:200,
+desc:"Низкое давление в колесах",
+details:"Проверка и подкачка давления до 2-bar"
+},
+
+{
+category:"wheels",
+name:"Центровка колеса",
+price:4000,
+desc:"Исправление восьмёрок",
+details:"Настройка натяжения спиц и выравнивание колеса для ровного вращения."
+},
+
+{
+category:"wheels",
+name:"Обслуживание втулки",
+price:3000,
+desc:"Смазка подшипников",
+details:"Разбор втулки, мойка компонентов, смазка подшипников и устранение люфтов."
+},
+
+{
+category:"brakes",
+name:"Настройка тормозов",
+price:2000,
+desc:"Корректная работа тормозов",
+details:"Настройка силы торможения, положения колодок и устранение трения."
+},
+
+{
+category:"brakes",
+name:"Прокачка гидравлических тормозов",
+price:2000,
+desc:"Удаление воздуха",
+details:"Полная прокачка гидравлической системы и замена тормозной жидкости."
+},
+
+{
+category:"brakes",
+name:"Замена колодок",
+price:2000,
+desc:"Установка новых колодок",
+details:"Снятие старых тормозных колодок и установка новых с настройкой торможения."
+},
+
+{
+category:"brakes",
+name:"Выравнивание ротора",
+price:2000,
+desc:"Исправление биения",
+details:"Исправление кривого тормозного ротора для тихой и ровной работы."
+},
+
+{
+category:"to",
+name:"Базовое ТО",
+price:4000,
+desc:"Проверка основных узлов",
+details:"Проверка тормозов, переключателей, давления, протяжка болтов и базовая настройка велосипеда."
+},
+
+{
+category:"to",
+name:"Полное ТО PRO",
+price:7000,
+desc:"Полный сервис велосипеда",
+details:"Чистка трансмиссии, настройка тормозов и переключателей, диагностика и полная проверка велосипеда."
+},
+
+{
+category:"to",
+name:"Deep Service",
+price:12000,
+desc:"Полная разборка велосипеда",
+details:"Полная разборка велосипеда, мойка деталей, смазка подшипников и профессиональная сборка."
+},
+
+{
+category:"to",
+name:"Race Prep",
+price:9000,
+desc:"Подготовка к соревнованиям",
+details:"Максимальная настройка велосипеда для соревнований и высоких нагрузок."
+},
+{
+category:"do",
+name:"💬 Индивидуальный ремонт",
+price:"WhatsApp",
+desc:"Не нашли нужную услугу?",
+details:"Напишите нам в WhatsApp. Мы подскажем стоимость и поможем с любым ремонтом велосипеда."
+}
+
+];
+
+/* ===== CATEGORY ===== */
+
+function setCategory(category,el){
+
+currentCategory = category;
+
+document.querySelectorAll(".top-cat")
+.forEach(c=>c.classList.remove("active"));
+
+el.classList.add("active");
+
+renderServices();
+
+}
+
+/* ===== RENDER ===== */
+
+function renderServices(){
+
+const search =
+document.getElementById("search").value.toLowerCase();
+
+let filtered = services.filter(service=>{
+
+const matchCategory =
+currentCategory === "all" ||
+service.category === currentCategory;
+
+const matchSearch =
+service.name.toLowerCase().includes(search);
+
+return matchCategory && matchSearch;
+
+});
+
+document.getElementById("services").innerHTML =
+filtered.map(service=>`
+
+<div class="card">
+
+<h3>${service.name}</h3>
+
+<p class="desc">${service.desc}</p>
+
+<div class="price">
+${typeof service.price === "number"
+? service.price + "₸"
+: service.price}
+</div>
+
+<button onclick="openService('${service.name}')">
+Подробнее
+</button>
+
+</div>
+
+`).join("");
+
+}
+
+function openService(name){
+
+const service = services.find(s => s.name === name);
+if(!service) return;
+
+// 👉 категория "другое" → GPT
+if(service.category === "do"){
+    window.location.href = "gpt.html?msg=" + encodeURIComponent(service.name);
+    return;
+}
+
+// 👉 открыть модалку
+currentService = service;
+
+document.getElementById("modalTitle").innerText = service.name;
+document.getElementById("modalText").innerText = service.details;
+
+document.getElementById("modalPrice").innerText =
+typeof service.price === "number"
+? service.price + "₸"
+: service.price;
+
+document.getElementById("modal").style.display = "flex";
+
+
+function openService(name){
+
+const service = services.find(s => s.name === name);
+if(!service) return;
+
+// 👉 категория "другое" → GPT
+if(service.category === "do"){
+    window.location.href = "gpt.html?msg=" + encodeURIComponent(service.name);
+    return;
+}
+
+// 👉 иначе открыть модалку
+currentService = service;
+
+document.getElementById("modalTitle").innerText = service.name;
+document.getElementById("modalText").innerText = service.details;
+
+document.getElementById("modalPrice").innerText =
+typeof service.price === "number"
+? service.price + "₸"
+: service.price;
+
+document.getElementById("modal").style.display = "flex";
+}
+
+}
+
+function closeModal(){
+
+document.getElementById("modal").style.display =
+"none";
+
+}
+
+/* ===== CART ===== */
+
+function addCurrentService(){
+
+cart.push(currentService);
+
+renderCart();
+
+closeModal();
+
+document.getElementById("cart").style.display =
+"block";
+
+}
+
+function renderCart(){
+
+let total = 0;
+
+document.getElementById("cartItems").innerHTML =
+cart.map(item=>{
+
+total += item.price;
+
+return `
+<div class="cart-item">
+<div>${item.name}</div>
+<div>${item.price}₸</div>
+</div>
+`;
+
+}).join("");
+
+document.getElementById("total").innerText =
+total;
+
+}
+
+function toggleCart(){
+
+const cartBox =
+document.getElementById("cart");
+
+if(cartBox.style.display==="block"){
+cartBox.style.display="none";
+}else{
+cartBox.style.display="block";
+}
+
+}
+
+/* ===== BACKGROUND ===== */
+
+const canvas=document.getElementById("bg");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+}
+
+resize();
+
+window.addEventListener("resize",resize);
+
+let dots=[];
+
+for(let i=0;i<60;i++){
+
+dots.push({
+x:Math.random()*innerWidth,
+y:Math.random()*innerHeight,
+vx:(Math.random()-0.5)*1.2,
+vy:(Math.random()-0.5)*1.2
+});
+
+}
+
+function draw(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+dots.forEach(d=>{
+
+d.x+=d.vx;
+d.y+=d.vy;
+
+if(d.x<0||d.x>canvas.width)d.vx*=-1;
+if(d.y<0||d.y>canvas.height)d.vy*=-1;
+
+ctx.fillStyle="#8b5cf6";
+
+ctx.beginPath();
+ctx.arc(d.x,d.y,2,0,Math.PI*2);
+ctx.fill();
+
+});
+
+requestAnimationFrame(draw);
+
+}
+
+draw();
+
+/* START */
+
+renderServices();
+
+</script>
+
+</body>
+</html>
